@@ -4,6 +4,7 @@ import { teacherSchema, TeacherSchemaType } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoIcon, LoaderIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
@@ -26,6 +27,7 @@ const TeacherForm = () => {
 	const submitTeacherData = async (fData: TeacherSchemaType) => {
 		await new Promise<void>((r) => setTimeout(r, 1800));
 		console.log(fData);
+		toast.success("Successfully Teacher Create!");
 		reset();
 	};
 
@@ -77,7 +79,7 @@ const TeacherForm = () => {
 
 			<Button
 				disabled={isSubmitting}
-				className="w-full">
+				className="w-full cursor-pointer">
 				{isSubmitting ? (
 					<>
 						<LoaderIcon className="animate-spin" /> Submitting...
