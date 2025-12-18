@@ -4,7 +4,7 @@ import prisma from "@/lib/database/dbClient";
 import { TeacherSchemaType } from "@/lib/schema";
 import { revalidatePath } from "next/cache";
 
-const createTheacher = async ({ firstName, lastName }: TeacherSchemaType) => {
+const createTeacher = async ({ firstName, lastName }: TeacherSchemaType) => {
 	try {
 		await prisma.teacher.create({
 			data: {
@@ -28,4 +28,4 @@ const createTheacher = async ({ firstName, lastName }: TeacherSchemaType) => {
 	}
 };
 
-export default createTheacher;
+export default createTeacher;

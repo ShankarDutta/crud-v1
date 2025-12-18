@@ -56,6 +56,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 							<Input
 								{...field}
 								id={field.name}
+								type="text"
 								aria-invalid={fieldState.invalid}
 								placeholder="first name"
 								autoComplete="given-name"
@@ -74,9 +75,10 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 							<Input
 								{...field}
 								id={field.name}
+								type="text"
 								aria-invalid={fieldState.invalid}
 								placeholder="last name"
-								autoComplete="given-name"
+								autoComplete="family-name"
 							/>
 
 							{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -94,9 +96,10 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 						<Input
 							{...field}
 							id={field.name}
+							type="email"
 							aria-invalid={fieldState.invalid}
 							placeholder="Enter your email id"
-							autoComplete="given-name"
+							autoComplete="email"
 						/>
 
 						{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
