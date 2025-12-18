@@ -1,9 +1,11 @@
 "use client";
 
 import { studentSchema, StudentSchemaType } from "@/lib/schema";
+import createStudent from "@/server/createStudent";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoIcon, LoaderIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Teacher } from "../../../generated/prisma/browser";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
@@ -24,6 +26,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 	const {
 		handleSubmit,
 		control,
+		reset,
 		formState: { isSubmitting },
 	} = useForm({
 		resolver: zodResolver(studentSchema),
@@ -38,8 +41,28 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 		mode: "onChange",
 	});
 
-	const submitData = (fData: StudentSchemaType) => {
-		console.log(fData);
+	const submitData = async ({
+		firstName,
+		lastName,
+		emailId,
+		gender,
+		teacherId,
+	}: StudentSchemaType) => {
+		await new Promise<void>((r) => setTimeout(r, 1800));
+		const { isSucess, message } = await createStudent({
+			firstName,
+			lastName,
+			emailId,
+			gender,
+			teacherId,
+		});
+
+		if (isSucess) {
+			toast.success(message);
+			reset();
+		} else {
+			toast.error(message);
+		}
 	};
 	return (
 		<form
@@ -158,7 +181,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 							<SelectContent>
 								{teacherInfo.map((teacher) => (
 									<SelectItem
-										value={`${teacher.firstName} ${teacher.lastName}`}
+										value={teacher.id}
 										key={teacher.id}>
 										{teacher.firstName} {teacher.lastName}
 									</SelectItem>

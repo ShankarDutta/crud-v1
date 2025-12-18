@@ -20,7 +20,7 @@ const createTeacher = async ({ firstName, lastName }: TeacherSchemaType) => {
 			message: "Teacher profile created successfully",
 		};
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return {
 			isSucess: false,
 			message: "Unable to create teacher! Please try again",
