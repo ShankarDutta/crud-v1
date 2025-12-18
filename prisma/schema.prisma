@@ -26,4 +26,5 @@ model Student {
   emailId   String  @unique
   teacher   Teacher @relation(fields: [teacherId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   teacherId String
+  stuImage  String
 }
