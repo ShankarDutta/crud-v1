@@ -1,7 +1,7 @@
 "use client";
 
 import { teacherSchema, TeacherSchemaType } from "@/lib/schema";
-import createTheacher from "@/server/createTheacher";
+import createTeacher from "@/server/createTeacher";
 import { faker } from "@faker-js/faker/locale/en_IN";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoIcon, LoaderIcon, SparklesIcon } from "lucide-react";
@@ -34,7 +34,7 @@ const TeacherForm = () => {
 		lastName,
 	}: TeacherSchemaType) => {
 		await new Promise<void>((r) => setTimeout(r, 1800));
-		const { isSucess, message } = await createTheacher({ firstName, lastName });
+		const { isSucess, message } = await createTeacher({ firstName, lastName });
 
 		if (isSucess) {
 			toast.success(message);
