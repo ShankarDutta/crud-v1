@@ -13,7 +13,7 @@ const createStudent = async (
 	try {
 		if (!imgFile) {
 			return {
-				isSucess: false,
+				isSuccess: false,
 				message: "Please upload student image",
 			};
 		}
@@ -44,13 +44,13 @@ const createStudent = async (
 		revalidatePath("/");
 
 		return {
-			isSucess: true,
+			isSuccess: true,
 			message: "Student profile created successfully",
 		};
 	} catch (error) {
 		console.error(error);
 		return {
-			isSucess: false,
+			isSuccess: false,
 			message: "Unable to create student! please try again",
 		};
 	}

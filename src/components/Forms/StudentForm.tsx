@@ -65,7 +65,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 	}: StudentSchemaType) => {
 		await new Promise<void>((r) => setTimeout(r, 1800));
 
-		const { isSucess, message } = await createStudent(
+		const { isSuccess, message } = await createStudent(
 			{
 				firstName,
 				lastName,
@@ -80,7 +80,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 			toast.error(message);
 			return;
 		}
-		if (isSucess) {
+		if (isSuccess) {
 			toast.success(message);
 			reset();
 			push("/");
@@ -205,7 +205,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 						control={control}
 						render={({ field, fieldState }) => (
 							<Field data-invalid={fieldState.invalid}>
-								<FieldLabel htmlFor={field.name}>Genader </FieldLabel>
+								<FieldLabel htmlFor={field.name}>Gender</FieldLabel>
 
 								<Select
 									name={field.name}
@@ -237,7 +237,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 						control={control}
 						render={({ field, fieldState }) => (
 							<Field data-invalid={fieldState.invalid}>
-								<FieldLabel htmlFor={field.name}>Teacher </FieldLabel>
+								<FieldLabel htmlFor={field.name}>Teacher</FieldLabel>
 
 								<Select
 									name={field.name}
