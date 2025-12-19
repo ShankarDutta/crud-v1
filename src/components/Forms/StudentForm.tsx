@@ -63,6 +63,11 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 		gender,
 		teacherId,
 	}: StudentSchemaType) => {
+		if (!isFile || !plainFiles[0]) {
+			toast.error("Please select a student image");
+			return;
+		}
+
 		await new Promise<void>((r) => setTimeout(r, 1800));
 
 		const { isSuccess, message } = await createStudent(
@@ -76,10 +81,6 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 			plainFiles[0],
 		);
 
-		if (!isFile) {
-			toast.error(message);
-			return;
-		}
 		if (isSuccess) {
 			toast.success(message);
 			reset();
