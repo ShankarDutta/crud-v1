@@ -1,8 +1,8 @@
 "use client";
 
+import { firstName, lastName } from "@/hooks/fakerGenerator";
 import { teacherSchema, TeacherSchemaType } from "@/lib/schema";
 import createTeacher from "@/server/createTeacher";
-import { faker } from "@faker-js/faker/locale/en_IN";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoIcon, LoaderIcon, SparklesIcon } from "lucide-react";
 import { useState } from "react";
@@ -47,8 +47,9 @@ const TeacherForm = () => {
 	const autoGenerate = async () => {
 		setIsLoading(true);
 		await new Promise<void>((r) => setTimeout(r, 1800));
-		setValue("firstName", faker.person.firstName());
-		setValue("lastName", faker.person.lastName());
+
+		setValue("firstName", firstName);
+		setValue("lastName", lastName);
 		clearErrors();
 		setIsLoading(false);
 	};

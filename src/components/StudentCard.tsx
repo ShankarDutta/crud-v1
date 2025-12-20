@@ -41,7 +41,7 @@ type StudentCardProps = {
 
 const StudentCard = ({ info }: StudentCardProps) => {
 	return (
-		<Card className="w-auto shadow-md md:w-[480px]">
+		<Card className="w-auto shadow-md md:w-120">
 			<CardHeader>
 				<CardTitle className="text-xl md:text-3xl">Student Details</CardTitle>
 			</CardHeader>
@@ -53,7 +53,7 @@ const StudentCard = ({ info }: StudentCardProps) => {
 						height={400}
 						width={400}
 						loading="eager"
-						className="h-[200px] w-full rounded-xl object-cover md:h-auto"
+						className="h-50 w-full rounded-xl object-cover md:h-auto"
 						alt={info.firstName}
 					/>
 				</div>
@@ -91,7 +91,7 @@ const StudentCard = ({ info }: StudentCardProps) => {
 				<Button
 					asChild
 					className="w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600 md:w-auto">
-					<Link href={"/"}>
+					<Link href={`/${info.id}`}>
 						<Pencil />
 						Edit
 					</Link>
