@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
+	await new Promise<void>((r) => setTimeout(r, 1200));
+
 	const allStudents = await prisma.student.findMany({
 		include: {
 			teacher: {
@@ -23,7 +25,7 @@ const page = async () => {
 	});
 
 	return (
-		<section className="grid h-[90dvh] place-items-center">
+		<section className="grid h-[95dvh] grid-cols-1 place-items-center gap-5 pt-24 md:grid-cols-2 md:pt-0">
 			{allStudents.map((item) => (
 				<StudentCard
 					key={item.id}
