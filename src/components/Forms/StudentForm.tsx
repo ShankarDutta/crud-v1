@@ -2,8 +2,9 @@
 
 import { studentSchema, StudentSchemaType } from "@/lib/schema";
 import createStudent from "@/server/createStudent";
+import { faker } from "@faker-js/faker/locale/en_IN";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InfoIcon, LoaderIcon } from "lucide-react";
+import { InfoIcon, LoaderIcon, SparklesIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -28,12 +29,15 @@ type StudentFormPropsType = {
 };
 
 const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
+	const [isLoading, setIsLoading] = useState(false);
 	const [isFile, setFile] = useState(false);
 	const { push } = useRouter();
 	const {
 		handleSubmit,
 		control,
 		reset,
+		setValue,
+		clearErrors,
 		formState: { isSubmitting },
 	} = useForm({
 		resolver: zodResolver(studentSchema),
@@ -89,6 +93,17 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 			toast.error(message);
 		}
 	};
+
+	const autoGenerate = async () => {
+		setIsLoading(true);
+
+		await new Promise<void>((r) => setTimeout(r, 1800));
+
+		setValue("firstName", faker.person.firstName());
+		setValue("lastName", faker.person.lastName());
+
+		setIsLoading(false);
+	};
 	return (
 		<section className="grid place-items-center">
 			{!isFile && (
@@ -100,7 +115,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 							height={450}
 							width={450}
 							onClick={openFilePicker}
-							className="h-auto w-[150px] cursor-pointer object-contain"
+							className="h-auto w-37.5 cursor-pointer object-contain"
 						/>
 					</TooltipTrigger>
 					<TooltipContent
@@ -284,6 +299,21 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 					)}
 				</Button>
 			</form>
+
+			<Button
+				onClick={autoGenerate}
+				disabled={isLoading}
+				className="mt-3 w-full cursor-pointer border border-black bg-transparent text-black hover:bg-black/90 hover:text-white dark:border-white dark:text-white dark:hover:bg-white/90 dark:hover:text-black">
+				{isLoading ? (
+					<>
+						<LoaderIcon className="animate-spin" /> Generating...
+					</>
+				) : (
+					<>
+						<SparklesIcon /> Generate
+					</>
+				)}
+			</Button>
 		</section>
 	);
 };
