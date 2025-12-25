@@ -87,7 +87,10 @@ const StudentCard = ({ info }: StudentCardProps) => {
 
 			<Separator />
 			<CardFooter className="block gap-5 space-y-2 md:flex md:justify-end md:space-y-0">
-				<DeleteButton />
+				<DeleteButton
+					studentDetails={info.id}
+					studntImage={info.stuImage}
+				/>
 				<Button
 					asChild
 					className="w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600 md:w-auto">

@@ -116,6 +116,7 @@ const StudentForm = ({ teacherInfo }: StudentFormPropsType) => {
 							alt="default-img"
 							height={450}
 							width={450}
+							loading="eager"
 							onClick={openFilePicker}
 							className="h-auto w-37.5 cursor-pointer object-contain"
 						/>

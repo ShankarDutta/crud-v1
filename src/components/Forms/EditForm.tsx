@@ -1,10 +1,13 @@
 "use client";
 
 import { studentSchema, StudentSchemaType } from "@/lib/schema";
+import updateStudents from "@/server/updateStudents";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InfoIcon, LoaderIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Prisma, Teacher } from "../../../generated/prisma/client";
+import EditImageComp from "../EditImageComp";
 import { Button } from "../shadcnui/button";
 import { Field, FieldError, FieldLabel } from "../shadcnui/field";
 import { Input } from "../shadcnui/input";
@@ -33,7 +36,7 @@ const EditForm = ({ stuDetails, teacherInfo }: EditFormType) => {
 	const {
 		handleSubmit,
 		control,
-		formState: { isSubmitting },
+		formState: { isSubmitting, isDirty },
 	} = useForm({
 		resolver: zodResolver(studentSchema),
 		defaultValues: {
@@ -47,12 +50,24 @@ const EditForm = ({ stuDetails, teacherInfo }: EditFormType) => {
 		mode: "onChange",
 	});
 
-	const updateData = (uData: StudentSchemaType) => {
-		console.log(uData);
+	const updateData = async (uData: StudentSchemaType) => {
+		await new Promise<void>((r) => setTimeout(r, 1800));
+
+		const { isSuccess, message } = await updateStudents(uData, stuDetails.id);
+
+		if (isSuccess) {
+			toast.success(message);
+		} else {
+			toast.error(message);
+		}
 	};
 
 	return (
 		<>
+			<EditImageComp
+				prevImgInfo={stuDetails.stuImage}
+				info={stuDetails.id}
+			/>
 			<form
 				onSubmit={handleSubmit(updateData)}
 				noValidate
@@ -192,7 +207,7 @@ const EditForm = ({ stuDetails, teacherInfo }: EditFormType) => {
 				</div>
 				<Button
 					type="submit"
-					disabled={isSubmitting}
+					disabled={isSubmitting || !isDirty}
 					className="w-full cursor-pointer">
 					{isSubmitting ? (
 						<>

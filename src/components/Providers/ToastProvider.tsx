@@ -1,5 +1,3 @@
-"use clinet";
-
 import { useTheme } from "next-themes";
 import { ToastContainer, Zoom } from "react-toastify";
 
